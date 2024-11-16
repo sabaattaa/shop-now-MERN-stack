@@ -40,3 +40,17 @@ a {
     color-scheme: dark;
   }
 }
+
+
+/* *{
+  border: 1px solid red;
+} */
+.red{
+  border: 1px solid red !important;
+}
+.blue{
+  border: 1px solid blue !important;
+}
+.pink{
+  border: 1px solid pink !important;
+}
