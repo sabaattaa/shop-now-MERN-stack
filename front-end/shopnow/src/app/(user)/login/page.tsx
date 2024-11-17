@@ -11,7 +11,7 @@ const { handleInputChange, handleSubmit, loginData } = useLogin();
 
   return (
     <div className={`${style.main} ${lato.className} h-100 red`}>
-      <form action="" className="d-flex flex-column blue p-3 rounded-3">
+      <form action="" className="d-flex flex-column b-gray p-3 rounded-3">
         <h2>Welcom to Mart</h2>
         <InputField
           value={loginData?.email}

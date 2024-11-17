@@ -54,3 +54,11 @@ a {
 .pink{
   border: 1px solid pink !important;
 }
+
+.input-field{
+  outline: none !important;
+  border-color: rgb(206, 202, 202) !important;
+}
+.b-gray{
+  border: rgb(206, 202, 202)  1px solid;
+}

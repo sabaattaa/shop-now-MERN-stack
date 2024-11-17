@@ -9,6 +9,7 @@ type InputFieldProps = {
   required?: boolean;
   className?: string;
   errorState?: boolean;
+  passwordState?: boolean;
   style?: React.CSSProperties;
   onchange: React.ChangeEventHandler<HTMLInputElement>;
 };
@@ -24,6 +25,7 @@ const InputField: React.FC<InputFieldProps> = ({
   className,
   errorState,
   placeholder,
+  passwordState,
 }) => {
   return (
     <>
@@ -34,7 +36,7 @@ const InputField: React.FC<InputFieldProps> = ({
         style={style}
         disabled={disable}
         required={required}
-        className={className}
+        className={` input-field ${className}`}
         placeholder={placeholder}
         onChange={onchange}
       />
@@ -47,7 +49,20 @@ const InputField: React.FC<InputFieldProps> = ({
             padding: "3px",
           }}
         >
-          {name} field requied
+          {placeholder} field requied
+        
+        </span>
+      )}
+      {value && passwordState && (
+        <span
+          style={{
+            color: "red",
+            textTransform: "capitalize",
+            fontSize: "13px",
+            padding: "3px",
+          }}
+        >
+          Password Do not match
         </span>
       )}
     </>

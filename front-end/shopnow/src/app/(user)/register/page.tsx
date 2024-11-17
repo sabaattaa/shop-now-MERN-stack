@@ -6,17 +6,40 @@ import ButtonField from "@/app/components/button";
 import { lato } from "../../fonts/allFonts";
 import { useLogin } from "../../customsHooks/useLogin";
 const Register = () => {
-  const { handleInputChange, handleSubmit, loginData, errorState } = useLogin();
+  const {
+    loginData,
+    errorState,
+    handleSubmit,
+    passwordState,
+    handleInputChange,
+  } = useLogin();
 
   return (
     <div className={`${style.main} ${lato.className} h-100 red`}>
-      <form action="" className="d-flex flex-column blue p-3 rounded-3">
+      <form action="" className="d-flex flex-column b-gray p-3 rounded-3">
         <h2>Register to Mart</h2>
+        <InputField
+          errorState={errorState}
+          value={loginData?.name}
+          onchange={handleInputChange}
+          placeholder={" Your Name"}
+          name="name"
+          type="text"
+          required={true}
+          disable={false}
+          style={{
+            border: "2px solid #007BFF",
+            borderRadius: "4px",
+            padding: "8px",
+            marginBottom: "10px",
+          }}
+          className="custom-input"
+        />
         <InputField
           errorState={errorState}
           value={loginData?.email}
           onchange={handleInputChange}
-          placeholder={"Enter Email/username"}
+          placeholder={" Email/Username"}
           name="email"
           type="text"
           required={true}
@@ -33,7 +56,7 @@ const Register = () => {
           errorState={errorState}
           value={loginData?.password}
           onchange={handleInputChange}
-          placeholder={"Enter Password"}
+          placeholder={"Password"}
           name="password"
           type="password"
           required={true}
@@ -48,6 +71,7 @@ const Register = () => {
         />{" "}
         <InputField
           errorState={errorState}
+          passwordState={passwordState}
           value={loginData?.confirmPassword}
           onchange={handleInputChange}
           placeholder={"Confirm Password"}

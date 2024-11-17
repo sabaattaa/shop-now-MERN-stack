@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const useLogin = () => {
   const [errorState, setErrorState] = useState(false);
+  const [passwordState, setPasswordState] = useState(false);
   const [loginData, setLoginData] = useState({
+    name:"",
     role: "",
     email: "",
     username: "",
@@ -14,14 +16,24 @@ export const useLogin = () => {
       Object.entries(data).filter(([key, value]) => value.trim() !== "")
     );
   };
-  // Handle input change
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setLoginData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
+
+  useEffect(() => {
+    if (loginData.password !== loginData.confirmPassword) {
+      setPasswordState(true);
+      console.log("Sssss");
+    } else {
+      setPasswordState(false);
+    }
+  }, [loginData]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,6 +44,7 @@ export const useLogin = () => {
 
   return {
     loginData,
+    passwordState,
     errorState,
     handleSubmit,
     handleInputChange,
