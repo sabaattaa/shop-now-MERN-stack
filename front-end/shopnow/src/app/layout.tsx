@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,7 +29,6 @@ export default function RootLayout({
       <body className={` ${geistSans.variable} ${geistMono.variable}`}>
         {children}
 
-        
         <div
           style={{
             display: "flex",
@@ -38,7 +38,9 @@ export default function RootLayout({
             fontWeight: "900",
             justifyContent: "center",
             textShadow: "0px 2px 4px  black",
-            fontSize: "30px",
+            fontSize: "14px",
+            position: "fixed",
+            bottom:"0px"
           }}
         >
           Created By SABA ATTA MUHAMMAD
