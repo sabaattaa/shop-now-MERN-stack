@@ -1,26 +1,20 @@
+import AdminHeader from "../_components/adminHeader";
+import Sidebar from "../_components/sidebar";
+import "./style.css";
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <div className={``}>
-      {children}
-
-      <div
-        style={{
-          display: "flex",
-          padding: "10px",
-          border: "1px solid #f2f2f3",
-          color: "#f2f2f3",
-          fontWeight: "900",
-          justifyContent: "center",
-          textShadow: "0px 2px 4px  black",
-          fontSize: "30px",
-        }}
-      >
-        Created By SABA ATTA MUHAMMAD
-      </div>
-    </div>
+    <>
+      <AdminHeader />
+      <div className={`h-100 w-100 d-flex px-2`}>
+        <div className="d-flex flex-column  sidebar">
+          <Sidebar />
+        </div>
+        <div className="d-flex flex-column  w-100">{children}</div>
+      </div>{" "}
+    </>
   );
 }

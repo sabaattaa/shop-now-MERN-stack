@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import style from "./login.module.css";
-import InputField from "@/app/components/inputField";
-import ButtonField from "@/app/components/button";
+import InputField from "@/app/_components/inputField";
+import ButtonField from "@/app/_components/button";
 import { lato } from "../../fonts/allFonts"
 import {useLogin} from "../../customsHooks/useLogin"
 const Login = () => {

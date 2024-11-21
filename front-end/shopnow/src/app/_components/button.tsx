@@ -1,7 +1,9 @@
+import Link from "next/link";
 import React from "react";
 
 type ButtonFieldProps = {
   name?: string;
+  link?: string;
   type?: "button" | "submit" | "reset";
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
@@ -12,6 +14,7 @@ type ButtonFieldProps = {
 
 const ButtonField: React.FC<ButtonFieldProps> = ({
   name,
+  link,
   type = "button",
   onClick,
   disabled,
@@ -25,10 +28,12 @@ const ButtonField: React.FC<ButtonFieldProps> = ({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={className}
+      className={`p-2 px-3  rounded-2 b-gray  ${className}`}
       style={style}
     >
-      {children}
+      <Link href={link||"#"} passHref className="text-decoration-none text-black">
+        {children}
+      </Link>
     </button>
   );
 };

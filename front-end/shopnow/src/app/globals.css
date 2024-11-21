@@ -41,24 +41,44 @@ a {
   }
 }
 
-
 /* *{
   border: 1px solid red;
 } */
-.red{
+.red {
   border: 1px solid red !important;
 }
-.blue{
+.blue {
   border: 1px solid blue !important;
 }
-.pink{
+.pink {
   border: 1px solid pink !important;
 }
 
-.input-field{
+.input-field {
   outline: none !important;
   border-color: rgb(206, 202, 202) !important;
 }
-.b-gray{
-  border: rgb(206, 202, 202)  1px solid;
+.b-gray {
+  border: rgb(206, 202, 202) 1px solid;
+}
+.btm-gray {
+  border-bottom: rgb(206, 202, 202) 1px solid;
+}
+.btp-gray {
+  border-top: rgb(206, 202, 202) 1px solid;
+}
+
+.pagination{
+  color: rgb(206, 202, 202) ;
+  border:  rgb(206, 202, 202) 1px solid;
+  height: 40px;
+  width: 40px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 18px;
+  background-color: white;
+  cursor: pointer;
 }
