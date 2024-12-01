@@ -11,7 +11,7 @@ const Pagination = () => {
         </div>
       )}
       {count.map((item, index) => (
-        <>
+       
           <div
             key={index}
             onClick={() => setCurrentPage(item)}
@@ -19,7 +19,7 @@ const Pagination = () => {
           >
             {item}
           </div>
-        </>
+        
       ))}
       {count.length - 5 > currentPage && (
         <div

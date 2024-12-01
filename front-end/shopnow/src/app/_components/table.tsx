@@ -75,7 +75,7 @@ const Actions = () => {
       className="b-gray position-absolute"
     >
       {action.map((item) => (
-        <>
+      
           <p
             style={{
               color: "gray",
@@ -88,8 +88,7 @@ const Actions = () => {
           >
             {item}
           </p>
-          <hr className="p-0 m-1" />
-        </>
+         
       ))}
     </div>
     // </div>
