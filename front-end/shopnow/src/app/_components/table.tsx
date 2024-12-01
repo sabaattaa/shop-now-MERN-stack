@@ -1,71 +1,21 @@
 "use client";
-import React, {  useState } from "react";
 import ButtonField from "./button";
 import Pagination from "./pagination";
 import Image from "next/image";
 import woment from "../media/1.jpg";
-
+import { useTableLogic } from "../customsHooks/useTableLogic";
 type TableProps = {
   tableHeaders: string[];
   TableData: Record<string, any>[];
-  seqTableData: Record<string, any>[];
   btnText: string;
   btnLink?: string;
 };
-const products = [
-  {
-    id: "P001",
-    name: "Product 1",
-    description: "Description of product 1",
-    price: "$10.00",
-    quantity: 20,
-    sku: "SKU001",
-    image: "https://via.placeholder.com/50",
-  },
-  {
-    id: "P002",
-    name: "Product 2",
-    description: "Description of product 2",
-    price: "$15.00",
-    quantity: 30,
-    sku: "SKU002",
-    image: "https://via.placeholder.com/50",
-  },
-  {
-    id: "P003",
-    name: "Product 3",
-    description: "Description of product 3",
-    price: "$20.00",
-    quantity: 50,
-    sku: "SKU003",
-    image: "https://via.placeholder.com/50",
-  },
-  {
-    id: "P004",
-    name: "Product 4",
-    description: "Description of product 4",
-    price: "$25.00",
-    quantity: 100,
-    sku: "SKU004",
-    image: "https://via.placeholder.com/50",
-  },
-  {
-    id: "P005",
-    name: "Product 5",
-    description: "Description of product 5",
-    price: "$30.00",
-    quantity: 10,
-    sku: "SKU005",
-    image: "https://via.placeholder.com/50",
-  },
-];
-
 const Actions = () => {
-  const action = ["Edit", "Delete", "View"];
+  const { actionss } = useTableLogic();
   return (
     <div
       style={{
-        height: "50p",
+        // height: "50px",
         width: "100px",
         top: "35px",
         left: "-80px",
@@ -74,47 +24,44 @@ const Actions = () => {
       }}
       className="b-gray position-absolute"
     >
-      {action.map((item) => (
-      
-          <p
-            style={{
-              color: "gray",
-              fontWeight: "500",
-              textAlign: "center",
-              margin: "0px",
-              cursor: "pointer",
-              // '&:hover{color:"red}'
-            }}
-          >
-            {item}
-          </p>
-         
+      {actionss.map((item, index) => (
+        <p
+          key={index}
+          style={{
+            color: "gray",
+            fontWeight: "500",
+            textAlign: "center",
+            margin: "0px",
+            cursor: "pointer",
+          }}
+        >
+          {item}
+        </p>
       ))}
     </div>
-    // </div>
   );
 };
 
-const headers = [
-  "Image",
-  "Id",
-  "Name",
-  "Description",
-  "Price",
-  "Quantity",
-  "SKU",
-];
 const Table: React.FC<TableProps> = ({
   tableHeaders,
   TableData,
-  seqTableData,
   btnText,
   btnLink,
 }) => {
-  const [defaultCheck, setDefaultCheck] = useState(false);
-  const [idmatch, setIdmatch]: any = useState(null);
-  const [action, setAction]: any = useState(false);
-  const seqTableDatas = ["id","name","description","price","quantity","sku",]
+  const {
+    allChecked,
+    setAllChecked,
+    deleteItems,
+    setDeleteItems,
+    idmatch,
+    setIdmatch,
+    action,
+    setAction,
+    checkedItems,
+    setCheckedItems,
+    uniqueKeys,
+  } = useTableLogic();
+
   const DarkScreen = () => {
     return (
       <div
@@ -127,6 +74,7 @@ const Table: React.FC<TableProps> = ({
       ></div>
     );
   };
+
   return (
     <div className="d-flex flex-column">
       {action && <DarkScreen />}
@@ -138,7 +86,7 @@ const Table: React.FC<TableProps> = ({
           name={"deletebtn"}
           type="button"
           onClick={() => {
-            console.log("object")
+            console.log("object");
           }}
           disabled={false}
           className={""}
@@ -148,14 +96,12 @@ const Table: React.FC<TableProps> = ({
         <ButtonField
           name={"addProduct"}
           type="button"
-          onClick={() => {
-
-          }}
+          onClick={() => {}}
           disabled={false}
           className={""}
           //   style={""}
-          children={"btnText"}
-          link={"/addProduct"}
+          children={btnText}
+          link={btnLink}
         />
       </div>
       <div className=" d-flex w-100 ps-2">
@@ -166,17 +112,16 @@ const Table: React.FC<TableProps> = ({
                 <input
                   type="checkbox"
                   className="p-2 "
+                  checked={allChecked}
                   style={{ transform: " scale(1.5)" }}
-                  // onChange={(e) => {
-                  // }}
-                  onClick={() => {
-                    setDefaultCheck(true);
-                    console.log("im clickisas", defaultCheck);
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setAllChecked(e.target.checked);
+                    setCheckedItems(TableData.map(() => e.target.checked));
                   }}
                 />
               </th>
 
-              {headers?.map((item, index) => {
+              {tableHeaders?.map((item, index) => {
                 return (
                   <th key={index} className="">
                     {item}
@@ -190,21 +135,35 @@ const Table: React.FC<TableProps> = ({
             </tr>
           </thead>
           <tbody className="w-100">
-            {products.map((product) => (
+            {TableData.map((product, index) => (
               <tr key={product.id} className="btm-gray w-100">
-                {/* Checkbox Column */}
                 <td>
                   <input
                     type="checkbox"
-                    defaultChecked={defaultCheck}
+                    checked={checkedItems[index]}
                     style={{ transform: "scale(1.5)" }}
+                    onChange={(e) => {
+                      const isChecked = e.target.checked;
+
+                      const newSelectItems = [...checkedItems];
+                      newSelectItems[index] = !newSelectItems[index];
+                      setCheckedItems(newSelectItems);
+
+                      if (isChecked) {
+                        setDeleteItems([...deleteItems, product.id]);
+                      } else {
+                        const newDelItems = [...deleteItems];
+                        newDelItems.splice(index, 1);
+                        setDeleteItems(newDelItems);
+                      }
+                    }}
                   />
                 </td>
 
                 {/* Image Column */}
                 <td className="py-1">
                   <Image
-                    src={ woment} // Use product's image or fallback
+                    src={woment}
                     height={40}
                     width={60}
                     className="rounded-1"
@@ -212,16 +171,12 @@ const Table: React.FC<TableProps> = ({
                     alt="Product Image"
                   />
                 </td>
-
-                {/* Dynamic Columns from seqTableDatas */}
-                {seqTableDatas.map((field: any) => (
+                {uniqueKeys.map((field: any) => (
                   <td key={`${product.id}-${field}`} className="w-100d">
                     {product[field as keyof typeof product] || "-"}
-                    {/* Display the value or a fallback */}
                   </td>
                 ))}
 
-                {/* Actions Column */}
                 <td
                   className="d-flex justify-content-center align-items-center h-100 w-100 position-relative"
                   onClick={() => {

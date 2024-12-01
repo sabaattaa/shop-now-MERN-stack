@@ -9,7 +9,7 @@ export default function RootLayout({
   return (
     <>
       <AdminHeader />
-      <div className={`h-100 w-100 d-flex px-2`}>
+      <div className={`h-100 w-100 d-flex pe-2 `}>
         <div className="d-flex flex-column  sidebar">
           <Sidebar />
         </div>
